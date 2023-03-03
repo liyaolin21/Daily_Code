@@ -38,10 +38,12 @@ def change_name(source_path):                   #该函数直接将源目录下�
             os.rename(file_path,new_path)
 
 def select_diff(source_path):           #本函数的表述是：在一个列表中剔除所用的相同元素，只保留唯一的一个
+    files2 = []
+    new_files = []
     idx = 0
     for root,dir,files in os.walk(source_path,topdown=True):
-        files2 = files
-        new_files =files
+        files2 = files.copy()
+        new_files =files.copy()
         for file in files:              #files是一个列表，我们的想法是创建files2，这个files里面不包含已经搜索的file和相同的不同命名的file，并且找到相同的file第二层循环不能终止，因为可能存在多个一样的，将唯一的一个复制到新文件夹中
             files2.remove(file)
             for file2 in files2:
@@ -79,10 +81,10 @@ def select_diff_file(source_path, file_list, new_path):     #根据提供的列�
 if __name__  ==  "__main__":
     std_height = 500
     std_width = 500
-    source_path = "F:/Tank/oringinal/tank"
-    re_path = "F:/Tank/selected500/tank"
+    source_path = "F:/Tank/oringinal/tank/"
+    re_path = "F:/Tank/selected500/tank/"
     #scale_select(source_path, re_path, std_height, std_width)
-    indiff_path = "F:/Tank/indiff/tank"
+    indiff_path = "F:/Tank/indiff/tank/"
     indiff_list = select_diff(source_path)
     print("indiff list got")
     select_diff_file(source_path, indiff_list, indiff_path)
